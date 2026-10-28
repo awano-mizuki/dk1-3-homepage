@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>75年度 DK1-3 | CASINO</title>
+  <style>
+    /* ===== 基本設定 ===== */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      color: #fff4d0;
+      background: radial-gradient(
+        ellipse at top,
+        #303020 0%,
+        #11130f 45%,
+        #070807 100%
+      );
+      text-align: center;
+    }
+    
+    /* ===== 画面切り替え用の設定 ===== */
+    .screen {
+      display: block;
+    }
+    .screen.hidden {
+      display: none !important;
+    }
+
+    /* ===== 上部の飾り ===== */
+    .top-line {
+      height: 6px;
+      background: linear-gradient(
+        90deg,
+        #7b5412,
+        #ffe7a0,
+        #bd8b25,
+        #fff0bb,
+        #7b5412
+      );
+    }
+    
+    /* ===== ヘッダー ===== */
+    header {
+      padding: 65px 20px 45px;
+      border-bottom: 1px solid #70571f;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(190, 145, 42, 0.13),
+        transparent 70%
+      );
+    }
+    .school-name {
+      margin: 0 0 20px;
+      color: #d8b968;
+      font-size: 13px;
+      letter-spacing: 5px;
+    }
+    h1 {
+      margin: 0;
+      color: #ffe6a0;
+      font-family: Georgia, "Yu Mincho", serif;
+      font-size: clamp(34px, 7vw, 62px);
+      font-weight: normal;
+      letter-spacing: 4px;
+      text-shadow: 0 0 25px rgba(255, 202, 77, 0.2);
+    }
+    .subtitle {
+      margin: 20px 0 0;
+      color: #c4b78f;
+      font-size: 13px;
+      letter-spacing: 4px;
+    }
+    .ornament {
+      margin-top: 30px;
+      color: #d6ae53;
+      font-size: 24px;
+      letter-spacing: 12px;
+    }
+    
+    /* ===== メインコンテンツ ===== */
+    main {
+      width: min(850px, 100%);
+      margin: 0 auto;
+      padding: 50px 22px 70px;
+    }
+    .intro {
+      max-width: 690px;
+      margin: 0 auto 55px;
+      color: #ddd5bd;
+      font-size: 15px;
+      line-height: 2.4;
+      text-align: left;
+    }
+    .section-label {
+      margin-bottom: 12px;
+      color: #c8a653;
+      font-size: 12px;
+      letter-spacing: 4px;
+    }
+    h2 {
+      margin: 0 0 35px;
+      color: #fff0c4;
+      font-family: "Yu Mincho", serif;
+      font-size: clamp(23px, 5vw, 32px);
+      font-weight: normal;
+      letter-spacing: 2px;
+    }
+    
+    /* ===== ゲーム一覧 ===== */
+    .our_making {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin: 0;
+      padding: 0;
+    }
+    .our_making li {
+      list-style: none;
+    }
+    .our_making li:last-child {
+      grid-column: 1 / -1;
+    }
+    .game-link {
+      position: relative;
+      display: flex;
+      min-height: 100px;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      overflow: hidden;
+      padding: 20px 12px;
+      border: 1px solid #78602b;
+      border-radius: 5px;
+      background: linear-gradient(
+        135deg,
+        #24251d,
+        #141510
+      );
+      color: #ffe4a0;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+    .game-link::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: #c7a04b;
+      content: "";
+      transition: width 0.25s ease;
+    }
+    .game-link:hover {
+      transform: translateY(-5px);
+      border-color: #f0cf76;
+      background: linear-gradient(
+        135deg,
+        #39301b,
+        #1b1a12
+      );
+      box-shadow: 0 8px 28px rgba(224, 174, 60, 0.14);
+    }
+    .game-link:hover::before {
+      width: 5px;
+    }
+    .game-icon {
+      font-size: 27px;
+    }
+    .game-name {
+      font-size: 18px;
+      letter-spacing: 2px;
+    }
+    .game-arrow {
+      margin-left: auto;
+      color: #c7a04b;
+      font-size: 20px;
+    }
+
+    /* ===== 内ページ共通スタイル ===== */
+    .game-content-page {
+      padding: 60px 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .btn-back {
+      display: inline-block;
+      margin-top: 40px;
+      padding: 10px 24px;
+      border: 1px solid #c7a04b;
+      color: #ffe4a0;
+      text-decoration: none;
+      border-radius: 4px;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-back:hover {
+      background: rgba(199, 160, 75, 0.2);
+    }
+    .member-list {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    .member-list .group-title {
+      font-weight: bold;
+      color: #d8b968;
+      margin-top: 20px;
+      margin-bottom: 5px;
+      border-bottom: 1px solid #4d4021;
+      padding-bottom: 5px;
+    }
+    .member-list li:not(.group-title) {
+      padding: 6px 0;
+      padding-left: 15px;
+      position: relative;
+    }
+    .member-list li:not(.group-title)::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: #c7a04b;
+    }
+    
+    /* ===== フッター ===== */
+    footer {
+      padding: 27px 20px;
+      border-top: 1px solid #4d4021;
+      color: #a99a73;
+      font-size: 12px;
+      letter-spacing: 2px;
+    }
+    footer .author {
+      margin-top: 8px;
+      color: #e0c47c;
+    }
+    
+    /* ===== スマートフォン対応 ===== */
+    @media (max-width: 480px) {
+      header {
+        padding: 48px 16px 35px;
+      }
+      main {
+        padding: 38px 16px 50px;
+      }
+      .our_making {
+        grid-template-columns: 1fr;
+      }
+      .our_making li:last-child {
+        grid-column: auto;
+      }
+      .game-link {
+        min-height: 82px;
+      }
+      .intro {
+        font-size: 14px;
+      }
+    }
+    
+    /* 動きを減らす設定にも対応 */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ホーム画面 -->
+  <section id="screen-home" class="screen">
+    <div class="top-line"></div>
+    <header>
+      <p class="school-name">75年度 DK1-3 PRESENTS</p>
+      <h1>一年三組へようこそ！</h1>
+      <p class="subtitle">WELCOME TO OUR CASINO</p>
+      <div class="ornament">✦ ◆ ✦</div>
+    </header>
+    <main>
+      <p class="intro">
+        私たちのテーマは、「ディズニー風カジノ」。
+        中間テストが終了してから、はや二週間。
+        そんな二週間を、私たちは自分たちの自由な時間を削ってまで、
+        この出し物にそれぞれの形で協力し、自分たちのブースで研鑽を重ねていきました。
+        今日は、そんな私たちの努力の結晶を、
+        少しだけのぞいてみないでしょうか？
+      </p>
+      <p class="section-label">OUR ATTRACTIONS</p>
+      <h2>私たちはこんなものを作りました！</h2>
+      <ul class="our_making">
+        <li>
+          <a class="game-link" onclick="showScreen('horses')">
+            <span class="game-icon">🏇</span>
+            <span class="game-name">競馬</span>
+            <span class="game-arrow">›</span>
+          </a>
+        </li>
+        <li>
+          <a class="game-link" onclick="showScreen('darts')">
+            <span class="game-icon">🎯</span>
+            <span class="game-name">ダーツ</span>
+            <span class="game-arrow">›</span>
+          </a>
+        </li>
+        <li>
+          <a class="game-link" onclick="showScreen('slots')">
+            <span class="game-icon">🎰</span>
+            <span class="game-name">スロット</span>
+            <span class="game-arrow">›</span>
+          </a>
+        </li>
+        <li>
+          <a class="game-link" onclick="showScreen('rulets')">
+            <span class="game-icon">🎡</span>
+            <span class="game-name">ルーレット</span>
+            <span class="game-arrow">›</span>
+          </a>
+        </li>
+        <li>
+          <a class="game-link" onclick="showScreen('odd_or_even')">
+            <span class="game-icon">🃏</span>
+            <span class="game-name">ハンかチョウ</span>
+            <span class="game-arrow">›</span>
+          </a>
+        </li>
+      </ul>
+    </main>
+  </section>
+
+  <!-- 競馬ページ -->
+  <section id="screen-horses" class="screen game-content-page hidden">
+    <h2>競馬班 メンバー</h2>
+    <ul class="member-list">
+      <li class="group-title">男子</li>
+      <li>メンバー1</li>
+      <li>メンバー2</li>
+      <li>メンバー3</li>
+      <li>メンバー4</li>
+      <li class="group-title">女子</li>
+      <li>メンバー5</li>
+      <li>メンバー6</li>
+      <li>メンバー7</li>
+      <li>メンバー8</li>
+    </ul>
+    <button class="btn-back" onclick="showScreen('home')">ホームに戻る</button>
+  </section>
+
+  <!-- ダーツページ -->
+  <section id="screen-darts" class="screen game-content-page hidden">
+    <h2>ダーツ班 メンバー</h2>
+    <ul class="member-list">
+        <li class="group-title">男子</li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li class="group-title">女子</li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <button class="btn-back" onclick="showScreen('home')">ホームに戻る</button>
+  </section>
+
+  <!-- スロットページ -->
+  <section id="screen-slots" class="screen game-content-page hidden">
+    <h2>スロット班 メンバー</h2>
+    <ul class="member-list">
+        <li class="group-title">男子</li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li class="group-title">女子</li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <button class="btn-back" onclick="showScreen('home')">ホームに戻る</button>
+  </section>
+
+  <!-- ルーレットページ -->
+  <section id="screen-rulets" class="screen game-content-page hidden">
+    <h2>ルーレット班 メンバー</h2>
+    <ul class="member-list">
+        <li class="group-title">男子</li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li class="group-title">女子</li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <button class="btn-back" onclick="showScreen('home')">ホームに戻る</button>
+  </section>
+
+  <!-- 半か丁 -->
+  <section id="screen-odd_or_even" class="screen game-content-page hidden">
+    <h2>半か丁班 メンバー</h2>
+    <ul class="member-list">
+        <li class="group-title">男子</li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li class="group-title">女子</li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <button class="btn-back" onclick="showScreen('home')">ホームに戻る</button>
+  </section>
+
+  <!-- フッター -->
+  <footer>
+    <div>75年度 DK1-3 CASINO</div>
+    <div class="author">その他、広報や内装、外装を手伝ってくれた皆さん。ありがとうございました。</div>
+    <div class="author">Present By: スロット班の粟野(文章案), 無料版ChatGPT(デザイン案), 無料版Gemini(スクリプト案)</div>
+  </footer>
+
+  <script>
+    // ホーム画面も含めてすべての画面要素を定義
+    const screens = {
+      home: document.getElementById("screen-home"),
+      horses: document.getElementById("screen-horses"),
+      darts: document.getElementById("screen-darts"),
+      slots: document.getElementById("screen-slots"),
+      rulets: document.getElementById("screen-rulets"),
+      odd_or_even: document.getElementById("screen-odd_or_even")
+    };
+
+    // 指定された画面を表示し、それ以外を非表示にする関数
+    function showScreen(name) {
+      if (!screens[name]) return;
+      
+      for (const key in screens) {
+      if (key === name) {
+        screens[key].classList.remove("hidden");
+        } else {
+        screens[key].classList.add("hidden");
+        }
+        }
+        // 画面切り替え時に最上部へスクロール
+        window.scrollTo(0, 0);
+        }
+  </script>
